@@ -1,0 +1,20 @@
+<h1>Games#new</h1>
+<h2>Letters: </h2>
+<ul>
+<% @letters.each do |letter| %>
+  <li><%= letter %></li>
+<% end %>
+</ul>
+
+<form action="/score" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= hidden_field_tag :letters, @letters %>
+  <label for="">What's the longest word you can find?</label>
+  <!-- <input type="hidden" id="token" value=<% @letters %>> -->
+  <input type="text" name="word">
+  <input type="submit" value="Play">
+</form>
+
+<!-- hidden_field_tag 'collected_input', '', onchange: "alert('Input collected!')"
+# => <input id="collected_input" name="collected_input" onchange="alert('Input collected!')"
+#    type="hidden" value="" /> -->
