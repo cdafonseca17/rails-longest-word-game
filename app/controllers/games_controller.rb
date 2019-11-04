@@ -10,16 +10,24 @@ class GamesController < ApplicationController
     @word = params[:word]
     url = "https://wagon-dictionary.herokuapp.com/#{@word}"
     @results = JSON.parse(open(url).read)
-
     @letters = params[:letters].split
     @words = params[:word].upcase.split('')
+    @score = 0
+    @list_score = []
     if (@words & @letters) != @words
       @message = 'Wrong use of letters!'
+      @score += -5
+      @list_score << @score
     elsif @results['found'] == false
       @message = "Word doesn't exist!"
+      @score += -3
+      @list_score << @score
     else
       @message = "Eligible for a score!"
+      @score += @words.length
+      @list_score << @score
     end
+    @list_score
   end
 
 # can’t be built out of the original grid
